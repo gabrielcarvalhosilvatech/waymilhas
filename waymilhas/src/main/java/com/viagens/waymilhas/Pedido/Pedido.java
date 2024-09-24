@@ -25,7 +25,6 @@ import lombok.Setter;
 @Entity
 @Table(name = "pedido")
 @AllArgsConstructor
-
 @Getter
 @Setter
 public class Pedido {
@@ -49,11 +48,21 @@ public class Pedido {
     private Double total;
 
     // Getters e Setters
-    public Pedido(@Valid PedidoRequestDTO data) {
-    }
-
-    public Double somarTotal()  {
+    
+        public Pedido(@Valid PedidoRequestDTO data) {
+            this.id = data.getId();  // Caso o ID seja passado, senão pode ser removido
+            this.cliente = data.getCliente();  // Certifique-se de que PedidoRequestDTO tenha o cliente
+            this.dataPedido = data.getDataPedido();  // Data do pedido no DTO
+            this.status = data.getStatus();  // Status do pedido
+            this.itens = data.getItens();  // Lista de itens do pedido no DTO
+     
+        }
         
-        return 0.0;
+    
+
+    public Double somarTotal() {
+        return itens.stream()
+                .mapToDouble(item -> item.getPrecoUnitario() * item.getQuantidade())  // Multiplica preço pela quantidade
+                .sum();
     }
 }

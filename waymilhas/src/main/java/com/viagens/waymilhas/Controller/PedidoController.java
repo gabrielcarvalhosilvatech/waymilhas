@@ -36,6 +36,7 @@ public class PedidoController {
     }
 
     // Método para atualizar um pedido
+    //Localhost:8080/pedido/8
     @PutMapping("/{id}")
     public PedidoResponseDTO put(@PathVariable Long id, @RequestBody @Valid PedidoResponseDTO data) {
         Pedido pedido = repository.findById(id)

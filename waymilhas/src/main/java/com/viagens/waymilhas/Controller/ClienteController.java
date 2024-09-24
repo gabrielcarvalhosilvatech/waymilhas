@@ -70,6 +70,12 @@ public class ClienteController {
         List<ClienteResponseDTO> clienteList = repository.findAll().stream()
             .map(ClienteResponseDTO::new)
             .toList();
+
+        // List<ClienteResponseDTO> response = new ArrayList<>();
+        // for (int i = 0; i < clienteList.size(); i++) {
+        //     response.add(new ClienteResponseDTO(clienteList.get(i)));
+        // }
+        
         return clienteList;
     }
 }

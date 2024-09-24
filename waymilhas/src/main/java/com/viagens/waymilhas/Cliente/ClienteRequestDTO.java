@@ -1,7 +1,7 @@
 package com.viagens.waymilhas.Cliente;
 
 
-import org.hibernate.validator.constraints.br.CPF;
+
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -26,7 +26,7 @@ public class ClienteRequestDTO{
     @NotBlank(message = "E-mail é obrigatório")
     private String email;
 
-    @CPF(message ="CPF é obrigatório")
+    @NotNull(message ="CPF é obrigatório")
     private String cpf;
 
     @NotNull(message = "Data de nascimento é obrigatória")

@@ -33,13 +33,14 @@ import lombok.Setter;
     private String imagem;
     
     
-        public ProdutoRequestDTO(Produto produto){
+    public ProdutoRequestDTO(Produto produto){
+        this.id = produto.getId();
+        this.nome = produto.getNome();
+        this.descricao = produto.getDescricao();
+        this.preco = produto.getPreco(); 
+        this.imagem = produto.getImagem();
+    }
     
-            this.id = produto.getId();
-            this.nome = produto.getNome();
-            this.descricao = produto.getDescricao();
-            this.imagem = produto.getImagem();
-        }
 
     
 }

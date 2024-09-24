@@ -42,4 +42,12 @@ public class ItemPedido {
 
     private Double precoUnitario;
 
+    public ItemPedido(ItemPedidoRequestDTO data) {
+        this.id = data.getId();  // Caso o ID seja passado, senão pode ser removido
+        this.pedido = data.getPedido();  // Obtém o pedido do DTO
+        this.produto = data.getProduto();  // Obtém o produto do DTO
+        this.quantidade = data.getQuantidade();  // Obtém a quantidade do DTO
+        this.precoUnitario = data.getPrecoUnitario();  // Obtém o preço unitário do DTO
+    }
+    
 }

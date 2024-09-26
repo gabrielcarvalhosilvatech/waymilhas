@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.viagens.waymilhas.Cliente.Cliente;
+import com.viagens.waymilhas.Cliente.ClienteRequestDTO;
+
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -21,7 +23,7 @@ public class PedidoRequestDTO {
 
     @NotNull(message = "O cliente é obrigatório")
     @Valid
-    private Cliente cliente;
+    private ClienteRequestDTO clienteRequestDTO;
 
     @NotNull(message = "A data do pedido é obrigatória")
     private LocalDateTime dataPedido;
@@ -33,6 +35,8 @@ public class PedidoRequestDTO {
     @Valid
     private List<ItemPedido> itens;
 
+    private Cliente clienteId;
+
     public Double calcularTotal() {
         return itens.stream()
                 .mapToDouble(item -> item.getPrecoUnitario() * item.getQuantidade())
@@ -42,7 +46,7 @@ public class PedidoRequestDTO {
     // Construtor que inicializa o PedidoRequestDTO a partir de um Pedido existente
     public PedidoRequestDTO(Pedido pedido) {
         this.id = pedido.getId();
-        this.cliente = pedido.getCliente();
+        this.clienteId = pedido.getClienteId();
         this.dataPedido = pedido.getDataPedido();
         this.status = pedido.getStatus();
         this.itens = pedido.getItens();

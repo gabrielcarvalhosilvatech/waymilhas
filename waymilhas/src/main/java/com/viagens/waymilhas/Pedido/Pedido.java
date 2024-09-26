@@ -22,12 +22,16 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity
+
 @Table(name = "pedido")
 @AllArgsConstructor
 @Getter
 @Setter
+@Entity
 public class Pedido {
+    
+ 
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,14 +39,14 @@ public class Pedido {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idCliente")
-    private final Cliente cliente;
+    private final Cliente clienteId;
 
     private LocalDateTime dataPedido;
 
     @Enumerated(EnumType.STRING)
     private StatusPedido status;
 
-    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ItemPedido> itens;
 
     private Double total;
@@ -51,7 +55,7 @@ public class Pedido {
     
         public Pedido(@Valid PedidoRequestDTO data) {
             this.id = data.getId();  // Caso o ID seja passado, senão pode ser removido
-            this.cliente = data.getCliente();  // Certifique-se de que PedidoRequestDTO tenha o cliente
+            this.clienteId = data.getClienteId();  // Certifique-se de que PedidoRequestDTO tenha o cliente
             this.dataPedido = data.getDataPedido();  // Data do pedido no DTO
             this.status = data.getStatus();  // Status do pedido
             this.itens = data.getItens();  // Lista de itens do pedido no DTO
@@ -65,4 +69,6 @@ public class Pedido {
                 .mapToDouble(item -> item.getPrecoUnitario() * item.getQuantidade())  // Multiplica preço pela quantidade
                 .sum();
     }
+
+    
 }

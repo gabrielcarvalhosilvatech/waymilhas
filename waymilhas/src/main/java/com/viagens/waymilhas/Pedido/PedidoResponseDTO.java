@@ -1,3 +1,15 @@
+package com.viagens.waymilhas.Pedido;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+import com.viagens.waymilhas.Cliente.ClienteResponseDTO; // Certifique-se de que você tenha esse DTO
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -9,24 +21,14 @@ public class PedidoResponseDTO {
     private StatusPedido status;
     private List<ItemPedido> itens;
     private Double total;
+    private ClienteResponseDTO cliente;  // Incluindo o cliente na resposta
 
-    // Campos do cliente que você deseja retornar
-    private Long clienteId;
-    private String clienteNome;
-    private String clienteEmail;
-
+    // Construtor que aceita um Pedido
     public PedidoResponseDTO(Pedido pedido) {
-        this.id = pedido.getId();
-        this.dataPedido = pedido.getDataPedido();
-        this.status = pedido.getStatus();
-        this.itens = pedido.getItens();
-        this.total = pedido.getTotal();
-        
-        // Preenchendo informações do cliente
-        if (pedido.getCliente() != null) {
-            this.clienteId = pedido.getCliente().getId();
-            this.clienteNome = pedido.getCliente().getNome();
-            this.clienteEmail = pedido.getCliente().getEmail();
-        }
+        this.id = getId();  // ID do pedido
+        this.dataPedido = getDataPedido();  // Data do pedido
+        this.status = getStatus();  // Status do pedido
+        this.itens = getItens();  // Itens do pedido
+        this.total = getTotal();  // Valor total
     }
 }

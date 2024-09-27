@@ -42,7 +42,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
         List<ItemPedido> itens = new ArrayList<>();
         for (ItemPedido itemDTO : pedidoRequest.getItens()) {
             ItemPedido item = new ItemPedido(itemDTO);
-
+ 
             itens.add(item);
         }
         pedido.setItens(itens);

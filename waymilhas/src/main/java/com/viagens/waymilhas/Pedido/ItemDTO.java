@@ -6,9 +6,7 @@ public class ItemDTO {
 
     private Long id;
 
-    
     private Pedido pedido;
-
   
     private Produto produto;
 

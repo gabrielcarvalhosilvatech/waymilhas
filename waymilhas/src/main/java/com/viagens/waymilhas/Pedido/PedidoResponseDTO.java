@@ -3,7 +3,7 @@ package com.viagens.waymilhas.Pedido;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.viagens.waymilhas.Cliente.ClienteResponseDTO; // Certifique-se de que você tenha esse DTO
+import com.viagens.waymilhas.Cliente.ClienteResponseDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,16 +19,17 @@ public class PedidoResponseDTO {
     private Long id;
     private LocalDateTime dataPedido;
     private StatusPedido status;
-    private List<ItemPedido> itens;
+    private List<ItemPedidoResponseDTO> itens;
     private Double total;
-    private ClienteResponseDTO cliente;  // Incluindo o cliente na resposta
+    private ClienteResponseDTO cliente; 
 
-    // Construtor que aceita um Pedido
+    
+
     public PedidoResponseDTO(Pedido pedido) {
-        this.id = getId();  // ID do pedido
-        this.dataPedido = getDataPedido();  // Data do pedido
-        this.status = getStatus();  // Status do pedido
-        this.itens = getItens();  // Itens do pedido
-        this.total = getTotal();  // Valor total
+        this.id = pedido.getId();  
+        this.dataPedido = pedido.getDataPedido(); 
+        this.status = pedido.getStatus(); 
+        this.itens = pedido.getItens().stream().map(ItemPedidoResponseDTO::new).toList();
+        this.total = pedido.getTotal();  
     }
 }

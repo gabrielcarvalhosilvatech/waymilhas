@@ -7,6 +7,7 @@ package com.viagens.waymilhas.Pedido;
 import com.viagens.waymilhas.Produto.Produto;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -30,11 +31,11 @@ public class ItemPedido {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "pedido_id")
     private Pedido pedido;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "produto_id")
     private Produto produto;
 
@@ -42,12 +43,9 @@ public class ItemPedido {
 
     private Double precoUnitario;
 
-    public ItemPedido(ItemPedido itemDTO) {
-        this.id = itemDTO.getId();  // Caso o ID seja passado, senão pode ser removido
-        this.pedido = itemDTO.getPedido();  // Obtém o pedido do DTO
-        this.produto = itemDTO.getProduto();  // Obtém o produto do DTO
-        this.quantidade = itemDTO.getQuantidade();  // Obtém a quantidade do DTO
-        this.precoUnitario = itemDTO.getPrecoUnitario();  // Obtém o preço unitário do DTO
+    public ItemPedido(ItemPedidoRequestDTO itemPedidoRequestDTO) {
+        this.produto = new Produto(itemPedidoRequestDTO.getProdutoId()); 
+        this.quantidade = itemPedidoRequestDTO.getQuantidade();
+        this.precoUnitario = itemPedidoRequestDTO.getPrecoUnitario(); 
     }
-    
 }

@@ -19,18 +19,16 @@ public class ProdutoResponseDTO{
 
     private Long id;
     
-
     private String nome;
-
  
     private String descricao;
 
-   
     private Float preco;
-
   
     private String imagem;
 
+
+    
     public ProdutoResponseDTO(Produto produto){
 
         this.id = produto.getId();

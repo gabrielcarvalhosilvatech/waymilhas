@@ -17,11 +17,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-
 
 @Table(name = "pedido")
 @AllArgsConstructor
@@ -33,40 +31,34 @@ public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idCliente")
-    private final  Cliente clienteId;
+   
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
 
     private LocalDateTime dataPedido;
-
+   
     @Enumerated(EnumType.STRING)
     private StatusPedido status;
-
-    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
+   
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<ItemPedido> itens;
-
     private Double total;
-
-    // Getters e Setters
-    
-        public Pedido(@Valid PedidoRequestDTO data) {
-            this.id = data.getId();  // Caso o ID seja passado, senão pode ser removido
-            this.clienteId =data.getClienteId();  // Certifique-se de que PedidoRequestDTO tenha o cliente
-            this.dataPedido = data.getDataPedido();  // Data do pedido no DTO
-            this.status = data.getStatus();  // Status do pedido
-            this.itens = data.getItens();  // Lista de itens do pedido no DTO
-     
-        }
-        
-    
+  
+    public Pedido(PedidoRequestDTO data) { 
+        this.cliente = new Cliente(data.getClienteId());
+        this.dataPedido = LocalDateTime.now();
+        this.status = data.getStatus(); 
+        this.itens = data.getItens().stream().map(itemDTO -> {
+            ItemPedido item = new ItemPedido(itemDTO);
+            item.setPedido(this);
+            return item;
+        }).toList();  
+    }
 
     public Double somarTotal() {
         return itens.stream()
-                .mapToDouble(item -> item.getPrecoUnitario() * item.getQuantidade())  // Multiplica preço pela quantidade
+                .mapToDouble(item -> item.getPrecoUnitario() * item.getQuantidade()) // Multiplica preço pela quantidade
                 .sum();
     }
-
-
-    
 }

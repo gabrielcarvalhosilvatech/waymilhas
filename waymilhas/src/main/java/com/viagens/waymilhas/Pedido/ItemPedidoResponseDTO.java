@@ -27,5 +27,6 @@ public class ItemPedidoResponseDTO {
         this.produto = new ProdutoResponseDTO(itemPedido.getProduto());  
         this.quantidade = itemPedido.getQuantidade(); 
         this.precoUnitario = itemPedido.getPrecoUnitario(); 
+        
     }}
 

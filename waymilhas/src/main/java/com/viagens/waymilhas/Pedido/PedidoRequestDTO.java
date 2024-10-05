@@ -14,28 +14,23 @@ import lombok.Setter;
 @NoArgsConstructor
 public class PedidoRequestDTO {
 
-    private Long id;
-
     @NotNull(message = "O cliente é obrigatório")
     private Long clienteId;
-   
+
     @NotNull(message = "O status do pedido é obrigatório")
     private StatusPedido status;
-    
+
     @NotNull(message = "A lista de itens é obrigatória")
-  
+
     private List<ItemPedidoRequestDTO> itens;
+
     @java.lang.SuppressWarnings(value = "all")
     @lombok.Generated
-   
 
-
-    
     public Double calcularTotal() {
         return itens.stream()
                 .mapToDouble(item -> item.getPrecoUnitario() * item.getQuantidade())
                 .sum();
     }
-
 
 }

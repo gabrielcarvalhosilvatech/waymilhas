@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.viagens.waymilhas.Cliente.ClienteResponseDTO;
+import com.viagens.waymilhas.FormaPagamento.FormaPagamento;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,17 +20,16 @@ public class PedidoResponseDTO {
     private Long id;
     private LocalDateTime dataPedido;
     private StatusPedido status;
+    private FormaPagamento formaPagamento;
     private List<ItemPedidoResponseDTO> itens;
     private Double total;
-    private ClienteResponseDTO cliente; 
-
-    
+    private ClienteResponseDTO cliente;
 
     public PedidoResponseDTO(Pedido pedido) {
-        this.id = pedido.getId();  
-        this.dataPedido = pedido.getDataPedido(); 
-        this.status = pedido.getStatus(); 
+        this.id = pedido.getId();
+        this.dataPedido = pedido.getDataPedido();
+        this.status = pedido.getStatus();
         this.itens = pedido.getItens().stream().map(ItemPedidoResponseDTO::new).toList();
-        this.total = pedido.getTotal();  
+        this.total = pedido.getTotal();
     }
 }

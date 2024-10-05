@@ -44,8 +44,8 @@ public class ItemPedido {
     private Double precoUnitario;
 
     public ItemPedido(ItemPedidoRequestDTO itemPedidoRequestDTO) {
-        this.produto = new Produto(itemPedidoRequestDTO.getProdutoId()); 
+        this.produto = new Produto(itemPedidoRequestDTO.getProdutoId());
         this.quantidade = itemPedidoRequestDTO.getQuantidade();
-        this.precoUnitario = itemPedidoRequestDTO.getPrecoUnitario(); 
+        this.precoUnitario = itemPedidoRequestDTO.getPrecoUnitario();
     }
 }

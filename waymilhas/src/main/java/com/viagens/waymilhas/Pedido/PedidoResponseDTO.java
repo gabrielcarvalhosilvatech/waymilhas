@@ -31,5 +31,7 @@ public class PedidoResponseDTO {
         this.status = pedido.getStatus();
         this.itens = pedido.getItens().stream().map(ItemPedidoResponseDTO::new).toList();
         this.total = pedido.getTotal();
+        this.formaPagamento = pedido.getFormaPagamento();
+        this.cliente = pedido.getCliente();
     }
 }

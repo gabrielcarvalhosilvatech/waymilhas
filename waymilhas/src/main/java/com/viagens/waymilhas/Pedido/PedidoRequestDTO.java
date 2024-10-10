@@ -17,6 +17,9 @@ public class PedidoRequestDTO {
     @NotNull(message = "O cliente é obrigatório")
     private Long clienteId;
 
+    @NotNull(message = "A forma de pagamento é obrigatório")
+    private long formaPagamentoId;
+
     @NotNull(message = "O status do pedido é obrigatório")
     private StatusPedido status;
 

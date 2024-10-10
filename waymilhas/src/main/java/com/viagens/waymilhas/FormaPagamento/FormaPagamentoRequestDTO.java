@@ -12,9 +12,10 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FormaPagamentoRequestDTO {
-    
+
     @NotBlank
     String nome;
+
     @NotNull
     String imagem;
 }

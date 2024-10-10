@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.viagens.waymilhas.Cliente.Cliente;
 import com.viagens.waymilhas.Controller.BaseEntity;
+import com.viagens.waymilhas.FormaPagamento.FormaPagamento;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -32,6 +33,11 @@ public class Pedido extends BaseEntity {
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "forma_pagamento_id", referencedColumnName = "id")
+    private FormaPagamento formaPagamento;
+    
+            
     private LocalDateTime dataPedido;
 
     @Enumerated(EnumType.STRING)
@@ -43,6 +49,7 @@ public class Pedido extends BaseEntity {
 
     public Pedido(PedidoRequestDTO data) {
         this.cliente = new Cliente(data.getClienteId());
+        this.formaPagamento = new FormaPagamento(data.getFormaPagamentoId());
         this.dataPedido = LocalDateTime.now();
         this.status = data.getStatus();
         this.itens = data.getItens().stream().map(itemDTO -> {
